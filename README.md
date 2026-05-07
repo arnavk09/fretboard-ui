@@ -1,6 +1,6 @@
 # 🎸 Fretboard UI
 
-The frontend for Fretboard — a trusted second-hand musical instrument marketplace for India, built with React + Vite.
+The frontend for Fretboard — a trusted second-hand escrow marketplace for India, built with React + Vite.
 
 ## 🚀 Tech Stack
 
