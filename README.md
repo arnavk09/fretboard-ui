@@ -9,7 +9,7 @@ The frontend for SafeCart — a trusted escrow marketplace for legal goods in In
 | **Framework** | React 19 |
 | **Build Tool** | Vite |
 | **Language** | JavaScript |
-| **API** | SafeCart Spring Boot API |
+| **API** | Escrow Commerce API |
 
 ## 🏁 Getting Started
 
@@ -21,8 +21,8 @@ The frontend for SafeCart — a trusted escrow marketplace for legal goods in In
 ### Clone & Install
 
 ```bash
-git clone https://github.com/arnavk09/safecart-ui.git
-cd safecart-ui
+git clone https://github.com/arnavk09/fretboard-ui.git
+cd fretboard-ui
 npm install
 ```
 
@@ -45,7 +45,7 @@ Open [http://localhost:5173](http://localhost:5173)
 ## 📁 Project Structure
 
 ```
-safecart-ui/
+fretboard-ui/
 ├── src/
 │   ├── main.jsx
 │   ├── App.jsx
@@ -64,11 +64,9 @@ safecart-ui/
 
 ## 🚢 Deployment
 
-TBD
-
-```bash
-npm run build
-```
+UI:Vercel
+<br/>
+Server:Render
 
 ## 👨‍💻 Author
 
