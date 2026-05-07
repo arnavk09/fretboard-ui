@@ -78,4 +78,9 @@ Arnav Katgeri
 
 Copyright © 2026 Arnav Katgeri. All rights reserved.
 
+No part of this software, including source code, documentation, or associated 
+files, may be reproduced, distributed, modified, or transmitted in any form or 
+by any means without the prior written permission of the author. Unauthorized 
+use may result in civil and criminal penalties under applicable law.
+
 ---
