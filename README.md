@@ -1,16 +1,81 @@
-# React + Vite
+# 🎸 Fretboard UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend for Fretboard — a trusted second-hand musical instrument marketplace for India, built with React + Vite.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Layer | Technology |
+|-------|------------|
+| **Framework** | React 19 |
+| **Build Tool** | Vite |
+| **Language** | JavaScript |
+| **API** | Fretboard Spring Boot API |
 
-## React Compiler
+## 🏁 Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js 18+
+- npm 10+
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Clone & Install
+
+```bash
+git clone https://github.com/arnavk09/fretboard-ui.git
+cd fretboard-ui
+npm install
+```
+
+### Configuration
+
+Create `.env.local` (do not commit to git):
+
+```bash
+VITE_API_URL=http://localhost:8080
+```
+
+### Run the Development Server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173)
+
+## 📁 Project Structure
+
+```
+fretboard-ui/
+├── src/
+│   ├── main.jsx
+│   ├── App.jsx
+│   └── assets/
+├── public/
+├── .env.local
+├── vite.config.js
+└── package.json
+```
+
+## 🔐 Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `VITE_API_URL` | Fretboard backend base URL |
+
+## 🚢 Deployment
+
+TBD
+
+```bash
+npm run build
+```
+
+## 👨‍💻 Author
+
+Arnav Katgeri
+
+## 📄 License
+
+Copyright © 2026 Arnav Katgeri. All rights reserved.
+
+---
