@@ -83,8 +83,8 @@ export default function Hero() {
       </Typography>
 
       <Typography sx={{ fontSize: 18, color: 'text.secondary', maxWidth: 560, lineHeight: 1.7, mb: 5, position: 'relative' }}>
-        Musical instruments, studio gear &amp; more — across India.
-        Funds held in escrow until you're completely satisfied.
+        Electronics, vehicles, home goods, collectibles, services and more — as long as it is legal to sell.
+        Funds stay in escrow until the buyer confirms delivery.
       </Typography>
 
       {/* CTAs */}

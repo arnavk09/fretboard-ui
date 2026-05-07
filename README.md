@@ -1,6 +1,6 @@
-# 🎸 Fretboard UI
+# SafeCart UI
 
-The frontend for Fretboard — a trusted second-hand escrow marketplace for India, built with React + Vite.
+The frontend for SafeCart — a trusted escrow marketplace for legal goods in India, built with React + Vite.
 
 ## 🚀 Tech Stack
 
@@ -9,7 +9,7 @@ The frontend for Fretboard — a trusted second-hand escrow marketplace for Indi
 | **Framework** | React 19 |
 | **Build Tool** | Vite |
 | **Language** | JavaScript |
-| **API** | Fretboard Spring Boot API |
+| **API** | SafeCart Spring Boot API |
 
 ## 🏁 Getting Started
 
@@ -21,8 +21,8 @@ The frontend for Fretboard — a trusted second-hand escrow marketplace for Indi
 ### Clone & Install
 
 ```bash
-git clone https://github.com/arnavk09/fretboard-ui.git
-cd fretboard-ui
+git clone https://github.com/arnavk09/safecart-ui.git
+cd safecart-ui
 npm install
 ```
 
@@ -45,7 +45,7 @@ Open [http://localhost:5173](http://localhost:5173)
 ## 📁 Project Structure
 
 ```
-fretboard-ui/
+safecart-ui/
 ├── src/
 │   ├── main.jsx
 │   ├── App.jsx
@@ -60,7 +60,7 @@ fretboard-ui/
 
 | Variable | Description |
 |----------|-------------|
-| `VITE_API_URL` | Fretboard backend base URL |
+| `VITE_API_URL` | SafeCart backend base URL |
 
 ## 🚢 Deployment
 

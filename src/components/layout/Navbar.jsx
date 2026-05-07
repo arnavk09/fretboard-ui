@@ -24,10 +24,10 @@ export default function Navbar() {
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 16, flexShrink: 0,
           }}>
-            🎸
+            🛡️
           </Box>
           <Box component="span" sx={{ fontSize: 20, fontWeight: 700, color: 'text.primary', letterSpacing: '-0.5px' }}>
-            Fretboard
+            SafeCart
           </Box>
         </Box>
 

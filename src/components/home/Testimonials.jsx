@@ -5,16 +5,16 @@ const amber = '#F59E0B'
 
 const TESTIMONIALS = [
   {
-    quote: "Sold my old Fender in two days. Escrow gave the buyer confidence to pay upfront — no back-and-forth at all.",
-    name: 'Rohan M.', role: 'Guitarist, Mumbai', initials: 'RM', bg: '#1C1C2E',
+    quote: "Sold my laptop in two days. Escrow gave the buyer confidence to pay upfront — no back-and-forth at all.",
+    name: 'Rohan M.', role: 'Seller, Mumbai', initials: 'RM', bg: '#1C1C2E',
   },
   {
-    quote: "Found a mint Roland at half retail price. Escrow meant I could buy without worrying about getting scammed.",
-    name: 'Priya S.', role: 'Keyboardist, Bengaluru', initials: 'PS', bg: '#1C2420',
+    quote: "Found a barely used scooter at a fair price. Escrow meant I could inspect it before funds were released.",
+    name: 'Priya S.', role: 'Buyer, Bengaluru', initials: 'PS', bg: '#1C2420',
   },
   {
-    quote: "As a music teacher I recommend Fretboard to every student. Affordable gear, safe payments, trustworthy sellers.",
-    name: 'Arjun T.', role: 'Music Educator, Pune', initials: 'AT', bg: '#1E1C14',
+    quote: "I recommend SafeCart for high-value second-hand deals. The rules are clear and both sides feel protected.",
+    name: 'Arjun T.', role: 'Small Business Owner, Pune', initials: 'AT', bg: '#1E1C14',
   },
 ]
 
@@ -29,7 +29,7 @@ export default function Testimonials() {
           variant="h2"
           sx={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: { xs: 32, md: 48 } }}
         >
-          Loved by musicians<br />across India.
+          Trusted by buyers<br />and sellers across India.
         </Typography>
 
         <Box sx={{

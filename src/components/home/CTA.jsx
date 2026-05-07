@@ -22,7 +22,7 @@ export default function CTA() {
         },
       }}>
         <Typography variant="overline" sx={{ color: amber, fontSize: 12, display: 'block', mb: 2, position: 'relative' }}>
-          🎶 Ready?
+          🛡️ Ready?
         </Typography>
         <Typography
           variant="h2"
@@ -32,13 +32,13 @@ export default function CTA() {
             maxWidth: 560, mx: 'auto', mb: 2, position: 'relative',
           }}
         >
-          Your next instrument<br />is already listed.
+          Your next great deal<br />is already listed.
         </Typography>
         <Typography sx={{
           color: 'text.secondary', maxWidth: 440, mx: 'auto', mb: 5,
           lineHeight: 1.7, position: 'relative',
         }}>
-          Join thousands of musicians buying and selling across India. Free to list, safe to buy.
+          Join thousands of people buying and selling legal goods across India. Free to list, safe to buy.
         </Typography>
         <Box sx={{ display: 'flex', gap: 1.75, justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
           <Button

@@ -7,9 +7,9 @@ import { fetchListingById } from '../services/api'
 const amber = '#F59E0B'
 
 const CATEGORY_ICONS = {
-  GUITAR: '🎸', BASS: '🎸', KEYBOARD: '🎹', DRUM: '🥁',
-  AMP: '🔊', PEDAL: '🎛️', MIC: '🎙️', STUDIO: '🎚️',
-  DJ: '🎧', VINTAGE: '📦', ACCESSORY: '🎵',
+  ELECTRONICS: '💻', VEHICLES: '🏍️', FURNITURE: '🛋️', FASHION: '👕',
+  TOOLS: '🧰', BOOKS: '📚', COLLECTIBLES: '📦', APPLIANCES: '🔌',
+  SERVICES: '🤝', TICKETS: '🎟️', OTHER: '🧾',
 }
 
 export default function ListingDetail() {
@@ -36,7 +36,7 @@ export default function ListingDetail() {
   )
   if (!listing) return null
 
-  const icon = CATEGORY_ICONS[listing.category] || '🎵'
+  const icon = CATEGORY_ICONS[listing.category] || '🧾'
   const isGood = listing.condition === 'new' || listing.condition === 'like-new'
 
   const details = [

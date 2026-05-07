@@ -4,12 +4,12 @@ import { createListing } from '../services/api'
 
 const amber = '#F59E0B'
 
-const CATEGORIES = ['GUITAR', 'BASS', 'KEYBOARD', 'DRUM', 'WIND', 'STRINGS', 'AMP', 'PEDAL', 'MIC', 'STUDIO', 'DJ', 'VINTAGE', 'ACCESSORY']
+const CATEGORIES = ['ELECTRONICS', 'VEHICLES', 'FURNITURE', 'FASHION', 'TOOLS', 'BOOKS', 'COLLECTIBLES', 'APPLIANCES', 'SERVICES', 'TICKETS', 'OTHER']
 const CONDITIONS = ['new', 'like-new', 'good', 'fair', 'for-parts']
 
 const EMPTY_FORM = {
   title: '', description: '', price: '',
-  category: 'GUITAR', condition: 'good',
+  category: 'ELECTRONICS', condition: 'good',
   location: '', sellerId: '',
   brand: '', model: '', year: '', pincode: '',
 }
@@ -61,13 +61,13 @@ export default function SellPage() {
   return (
     <Box sx={{ pt: '100px', pb: 10, maxWidth: 720, mx: 'auto', px: 3 }}>
       <Typography variant="overline" sx={{ color: amber, fontSize: 12, display: 'block', mb: 2 }}>
-        💰 Sell Your Gear
+        💰 Sell Anything Legal
       </Typography>
       <Typography
         variant="h2"
         sx={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: { xs: 32, md: 48 }, mb: 1 }}
       >
-        List Your Instrument
+        List Your Item
       </Typography>
       <Typography sx={{ color: 'text.secondary', mb: 5, lineHeight: 1.7 }}>
         Escrow protects you — buyers pay before you ship, funds release when they confirm receipt.
@@ -136,7 +136,7 @@ export default function SellPage() {
           disabled={submitting}
           sx={{ py: 2, fontSize: 16 }}
         >
-          {submitting ? 'Listing...' : 'List Your Instrument →'}
+          {submitting ? 'Listing...' : 'List Your Item →'}
         </Button>
       </Box>
     </Box>

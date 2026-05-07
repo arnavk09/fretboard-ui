@@ -4,15 +4,15 @@ import { alpha } from '@mui/material/styles'
 const amber = '#F59E0B'
 
 const FEATURES = [
-  { icon: '🔒', title: 'Escrow on Every Deal', body: "Funds are held by Fretboard until the buyer confirms receipt. No payment disputes, no scams." },
+  { icon: '🔒', title: 'Escrow on Every Deal', body: "Funds are held by SafeCart until the buyer confirms receipt. No payment disputes, no scams." },
   { icon: '✓', title: 'Verified Seller Profiles', body: "Every seller goes through identity verification. You know exactly who you're buying from." },
   { icon: '📍', title: 'Hyper-local Discovery', body: 'Search by city or pincode. Meet local sellers, inspect before buying.' },
-  { icon: '💬', title: 'Musician-first Community', body: 'Ratings and reviews built for people who care about gear quality and honest descriptions.' },
+  { icon: '💬', title: 'Clear Buyer-Seller Chat', body: 'Ratings, messages, and listing details help both sides agree on condition, delivery, and expectations.' },
   { icon: '💰', title: 'No Hidden Fees', body: 'Transparent, low commission. Sellers keep what they earn. Fair prices for buyers.' },
   { icon: '🚀', title: 'List in 3 Minutes', body: 'Guided listing flow with instant publishing. Your item is searchable the moment you submit.' },
 ]
 
-export default function WhyFretboard() {
+export default function WhyEscrowStore() {
   return (
     <Box
       component="section"
@@ -25,16 +25,16 @@ export default function WhyFretboard() {
       <Box sx={{ maxWidth: 1100, mx: 'auto' }}>
         <Box sx={{ textAlign: 'center', mb: 8 }}>
           <Typography variant="overline" sx={{ color: amber, fontSize: 12, display: 'block', mb: 2 }}>
-            🛡️ Why Fretboard
+            🛡️ Why SafeCart
           </Typography>
           <Typography
             variant="h2"
             sx={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: { xs: 32, md: 48 }, mb: 2 }}
           >
-            Built on trust,<br />tuned for India.
+            Built on trust,<br />made for India.
           </Typography>
           <Typography sx={{ color: 'text.secondary', maxWidth: 520, mx: 'auto', lineHeight: 1.7 }}>
-            We built the marketplace we wished existed when we were buying our first guitar.
+            We built the marketplace we wanted for everyday second-hand deals, high-value purchases, and verified local sellers.
           </Typography>
         </Box>
 

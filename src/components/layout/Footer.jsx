@@ -2,7 +2,7 @@ import { Box, Typography, Link as MuiLink, Divider } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 const FOOTER_COLS = [
-  { title: 'Marketplace', links: ['Browse All', 'Guitars', 'Studio Gear', 'DJ & Production'] },
+  { title: 'Marketplace', links: ['Browse All', 'Electronics', 'Vehicles', 'Home & Living'] },
   { title: 'Company', links: ['About Us', 'Blog', 'Careers', 'Press'] },
   { title: 'Support', links: ['Help Center', 'Safety Tips', 'Contact Us', 'Community'] },
 ]
@@ -31,13 +31,13 @@ export default function Footer() {
                 borderRadius: '8px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: 16,
-              }}>🎸</Box>
+              }}>🛡️</Box>
               <Box component="span" sx={{ fontSize: 20, fontWeight: 700, color: 'text.primary', letterSpacing: '-0.5px' }}>
-                Fretboard
+                SafeCart
               </Box>
             </Box>
             <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 280, lineHeight: 1.7 }}>
-              India's trusted escrow marketplace for musical instruments and gear. Secure payments, verified sellers.
+              India's trusted escrow marketplace for legal goods. Secure payments, verified sellers, protected delivery.
             </Typography>
           </Box>
 
@@ -70,7 +70,7 @@ export default function Footer() {
 
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
           <Typography variant="body2" color="text.disabled">
-            © 2026 Fretboard. All rights reserved.
+            © 2026 SafeCart. All rights reserved.
           </Typography>
           <Box sx={{ display: 'flex', gap: 3 }}>
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((l) => (

@@ -1,23 +1,41 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Typography, Chip, Card, CardContent } from '@mui/material'
+import { Link, useSearchParams } from 'react-router-dom'
+import { Box, Typography, MenuItem, Select, FormControl, InputLabel, Card, CardContent } from '@mui/material'
 import { alpha } from '@mui/material/styles'
 import { fetchListings } from '../services/api'
 
 const amber = '#F59E0B'
 
-const CATEGORIES = ['GUITAR', 'BASS', 'KEYBOARD', 'DRUM', 'AMP', 'PEDAL', 'MIC', 'STUDIO', 'DJ', 'VINTAGE', 'ACCESSORY']
+const CATEGORIES = [
+  'ELECTRONICS', 'FURNITURE', 'HOME_APPLIANCE', 'FASHION', 'BEAUTY',
+  'SPORTS', 'BOOKS', 'COLLECTIBLES', 'ACCESSORY', 'MUSIC_INSTRUMENT',
+  'GAMING', 'TOOLS', 'VEHICLE', 'LUXURY', 'OTHER'
+]
 
 const CATEGORY_ICONS = {
-  GUITAR: '🎸', BASS: '🎸', KEYBOARD: '🎹', DRUM: '🥁',
-  AMP: '🔊', PEDAL: '🎛️', MIC: '🎙️', STUDIO: '🎚️',
-  DJ: '🎧', VINTAGE: '📦', ACCESSORY: '🎵',
+  ELECTRONICS: '💻', FURNITURE: '🛋️', HOME_APPLIANCE: '🔌', FASHION: '👕',
+  BEAUTY: '💄', SPORTS: '⚽', BOOKS: '📚', COLLECTIBLES: '📦',
+  ACCESSORY: '👜', MUSIC_INSTRUMENT: '🎸', GAMING: '🎮',
+  TOOLS: '🧰', VEHICLE: '🏍️', LUXURY: '💎', OTHER: '🧾',
+}
+
+const CATEGORY_LABELS = {
+  ELECTRONICS: 'Electronics', FURNITURE: 'Furniture', HOME_APPLIANCE: 'Home Appliances',
+  FASHION: 'Fashion', BEAUTY: 'Beauty', SPORTS: 'Sports', BOOKS: 'Books',
+  COLLECTIBLES: 'Collectibles', ACCESSORY: 'Accessories', MUSIC_INSTRUMENT: 'Music Instruments',
+  GAMING: 'Gaming', TOOLS: 'Tools', VEHICLE: 'Vehicles', LUXURY: 'Luxury', OTHER: 'Other',
 }
 
 export default function BrowsePage() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [listings, setListings] = useState([])
   const [loading, setLoading] = useState(true)
-  const [category, setCategory] = useState('')
+  const category = searchParams.get('category') || ''
+
+  const handleCategoryChange = (e) => {
+    const val = e.target.value
+    setSearchParams(val ? { category: val } : {})
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -31,30 +49,58 @@ export default function BrowsePage() {
       <Box sx={{ maxWidth: 1200, mx: 'auto', px: 3 }}>
         <Box sx={{ mb: 6 }}>
           <Typography variant="overline" sx={{ color: amber, fontSize: 12, display: 'block', mb: 2 }}>
-            🎸 Marketplace
+            🛡️ Escrow Marketplace
           </Typography>
           <Typography
             variant="h2"
-            sx={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: { xs: 28, md: 48 }, mb: 3 }}
+            sx={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: { xs: 28, md: 48 }, mb: 4 }}
           >
             Browse Listings
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 1.25, flexWrap: 'wrap' }}>
-            <Chip label="All" onClick={() => setCategory('')} sx={chipSx(!category)} />
-            {CATEGORIES.map(cat => (
-              <Chip
-                key={cat}
-                label={cat.charAt(0) + cat.slice(1).toLowerCase()}
-                onClick={() => setCategory(cat)}
-                sx={chipSx(category === cat)}
-              />
-            ))}
-          </Box>
+          <FormControl size="small" sx={{ minWidth: 220 }}>
+            <InputLabel sx={{ color: 'text.secondary' }}>Category</InputLabel>
+            <Select
+              value={category}
+              label="Category"
+              onChange={handleCategoryChange}
+              sx={{
+                color: 'text.primary',
+                '& .MuiOutlinedInput-notchedOutline': { borderColor: 'divider' },
+                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: amber },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: amber },
+              }}
+            >
+              <MenuItem value="">All Categories</MenuItem>
+              {CATEGORIES.map(cat => (
+                <MenuItem key={cat} value={cat}>
+                  {CATEGORY_ICONS[cat]} {CATEGORY_LABELS[cat]}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Box>
 
         {loading ? (
           <Typography sx={{ color: 'text.secondary', textAlign: 'center', py: 10 }}>Loading...</Typography>
+        ) : listings.length === 0 ? (
+          <Box sx={{ textAlign: 'center', py: 12 }}>
+            <Typography sx={{ fontSize: 48, mb: 2 }}>🔍</Typography>
+            <Typography variant="h6" sx={{ mb: 1 }}>No listings found</Typography>
+            <Typography sx={{ color: 'text.secondary', mb: 3 }}>
+              {category
+                ? `Nothing listed under ${CATEGORY_LABELS[category]} yet.`
+                : 'No listings available right now.'}
+            </Typography>
+            {category && (
+              <Typography
+                onClick={() => setSearchParams({})}
+                sx={{ color: amber, cursor: 'pointer', textDecoration: 'underline', fontSize: 14 }}
+              >
+                Clear filter
+              </Typography>
+            )}
+          </Box>
         ) : (
           <Box sx={{
             display: 'grid',
@@ -71,24 +117,8 @@ export default function BrowsePage() {
   )
 }
 
-function chipSx(active) {
-  return {
-    borderRadius: 9999,
-    border: '1px solid',
-    borderColor: active ? amber : 'divider',
-    bgcolor: active ? amber : 'background.paper',
-    color: active ? '#000' : 'text.secondary',
-    fontWeight: 500,
-    '&:hover': {
-      bgcolor: active ? '#FCD34D' : '#18181B',
-      borderColor: active ? '#FCD34D' : amber,
-      color: active ? '#000' : amber,
-    },
-  }
-}
-
 function ListingCard({ listing }) {
-  const icon = CATEGORY_ICONS[listing.category] || '🎵'
+  const icon = CATEGORY_ICONS[listing.category] || '🧾'
   const isGood = listing.condition === 'new' || listing.condition === 'like-new'
 
   return (
@@ -116,7 +146,7 @@ function ListingCard({ listing }) {
 
       <CardContent sx={{ flex: 1, p: 2.5 }}>
         <Typography sx={{ fontSize: 12, color: amber, textTransform: 'uppercase', fontWeight: 600, letterSpacing: '0.5px', mb: 1 }}>
-          {listing.category}
+          {CATEGORY_LABELS[listing.category] || listing.category}
         </Typography>
         <Typography sx={{ fontSize: 18, fontWeight: 700, mb: 1.5, lineHeight: 1.4 }}>
           {listing.title}

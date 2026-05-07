@@ -5,14 +5,14 @@ import { alpha } from '@mui/material/styles'
 const amber = '#F59E0B'
 
 const CATEGORIES = [
-  { icon: '🎹', name: 'Keyboards & Synths', count: '1,240 listings' },
-  { icon: '🥁', name: 'Drums & Percussion', count: '820 listings' },
-  { icon: '🔊', name: 'Amps & Effects', count: '950 listings' },
-  { icon: '🎙️', name: 'Studio & Recording', count: '630 listings' },
-  { icon: '🎛️', name: 'DJ & Production', count: '480 listings' },
-  { icon: '🎷', name: 'Wind & Brass', count: '540 listings' },
-  { icon: '🎻', name: 'Strings & Folk', count: '680 listings' },
-  { icon: '📦', name: 'Vintage & Collectibles', count: '390 listings' },
+  { icon: '📱', name: 'Phones & Tablets', count: '1,240 listings' },
+  { icon: '🏍️', name: 'Vehicles', count: '820 listings' },
+  { icon: '🛋️', name: 'Home & Furniture', count: '950 listings' },
+  { icon: '👕', name: 'Fashion', count: '630 listings' },
+  { icon: '🧰', name: 'Tools & Equipment', count: '480 listings' },
+  { icon: '🎟️', name: 'Tickets & Events', count: '540 listings' },
+  { icon: '📚', name: 'Books & Learning', count: '680 listings' },
+  { icon: '📦', name: 'Collectibles', count: '390 listings' },
 ]
 
 export default function Categories() {
@@ -22,13 +22,13 @@ export default function Categories() {
         <Box sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', mb: 6 }}>
           <Box>
             <Typography variant="overline" sx={{ color: amber, fontSize: 12, display: 'block', mb: 2 }}>
-              🎵 Shop by Category
+              🧾 Shop by Category
             </Typography>
             <Typography
               variant="h2"
               sx={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: { xs: 32, md: 48 } }}
             >
-              Every instrument,<br />every budget.
+              Everything legal,<br />every budget.
             </Typography>
           </Box>
           <Button
@@ -52,7 +52,7 @@ export default function Categories() {
           {/* Featured card */}
           <Box
             component={Link}
-            to="/browse?category=GUITAR"
+            to="/browse?category=ELECTRONICS"
             sx={{
               gridColumn: { md: 'span 2' },
               border: `1px solid ${alpha(amber, 0.2)}`,
@@ -69,16 +69,16 @@ export default function Categories() {
               },
             }}
           >
-            <Typography sx={{ fontSize: 52, lineHeight: 1, flexShrink: 0 }}>🎸</Typography>
+            <Typography sx={{ fontSize: 52, lineHeight: 1, flexShrink: 0 }}>💻</Typography>
             <Box>
               <Typography sx={{ fontSize: 24, fontWeight: 800, mb: 1, letterSpacing: '-0.5px' }}>
-                Guitars &amp; Bass
+                Electronics
               </Typography>
               <Typography sx={{ fontSize: 14, color: 'text.secondary', lineHeight: 1.6, mb: 2 }}>
-                From entry-level acoustics to pro-grade electrics — India's biggest second-hand guitar selection.
+                Phones, laptops, cameras, consoles, wearables and accessories protected by escrow.
               </Typography>
               <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                {['Acoustic', 'Electric', 'Classical', 'Bass'].map((p) => (
+                {['Phones', 'Laptops', 'Cameras', 'Gaming'].map((p) => (
                   <Box key={p} sx={{
                     bgcolor: '#18181B', border: '1px solid', borderColor: 'divider',
                     borderRadius: 9999, px: 1.5, py: 0.5,

@@ -5,16 +5,16 @@ const amber = '#F59E0B'
 
 const STEPS = [
   { n: '1', title: 'List your item', desc: 'Post with photos and a price in under 3 minutes. Goes live immediately.' },
-  { n: '2', title: 'Buyer pays into escrow', desc: 'Funds are held securely by Fretboard — neither party can touch them during transit.' },
+  { n: '2', title: 'Buyer pays into escrow', desc: 'Funds are held securely by SafeCart — neither party can touch them during transit.' },
   { n: '3', title: 'Ship to the buyer', desc: 'Package and send with a tracked courier. Share the tracking number through the platform.' },
   { n: '4', title: 'Buyer inspects & confirms', desc: 'The buyer has 48 hours to inspect and approve. Issues are resolved before funds move.' },
   { n: '5', title: 'You get paid', desc: 'Once confirmed, funds release to your account instantly. No waiting, no disputes.' },
 ]
 
 const MOCK_CARDS = [
-  { icon: '🎸', name: 'Fender Stratocaster', meta: 'Electric · Mumbai', price: '₹32,000', verified: true },
-  { icon: '🎹', name: 'Korg Minilogue XD', meta: 'Synth · Bengaluru', price: '₹28,500', verified: true },
-  { icon: '🥁', name: 'Pearl Export 5-Piece', meta: 'Drums · Delhi', price: '₹18,000', verified: false },
+  { icon: '💻', name: 'MacBook Pro M2', meta: 'Electronics · Mumbai', price: '₹92,000', verified: true },
+  { icon: '🏍️', name: 'Royal Enfield Classic', meta: 'Vehicle · Bengaluru', price: '₹1,45,000', verified: true },
+  { icon: '🛋️', name: 'Solid Wood Dining Set', meta: 'Furniture · Delhi', price: '₹18,000', verified: false },
 ]
 
 export default function HowItWorks() {
