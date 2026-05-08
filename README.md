@@ -9,7 +9,7 @@ The frontend for SafeCart — a trusted escrow marketplace for legal goods in In
 | **Framework** | React 19 |
 | **Build Tool** | Vite |
 | **Language** | JavaScript |
-| **API** | Escrow Commerce API |
+| **API** | Escrow Commerce API (Private, no access without agreement) |
 
 ## 🏁 Getting Started
 
