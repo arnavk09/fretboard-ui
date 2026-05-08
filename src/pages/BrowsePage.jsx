@@ -1,35 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Box, Typography, MenuItem, Select, FormControl, InputLabel, Card, CardContent } from '@mui/material'
 import { alpha } from '@mui/material/styles'
-import { fetchListings } from '../services/api'
-
-const amber = '#F59E0B'
-
-const CATEGORIES = [
-  'ELECTRONICS', 'FURNITURE', 'HOME_APPLIANCE', 'FASHION', 'BEAUTY',
-  'SPORTS', 'BOOKS', 'COLLECTIBLES', 'ACCESSORY', 'MUSIC_INSTRUMENT',
-  'GAMING', 'TOOLS', 'VEHICLE', 'LUXURY', 'OTHER'
-]
-
-const CATEGORY_ICONS = {
-  ELECTRONICS: '💻', FURNITURE: '🛋️', HOME_APPLIANCE: '🔌', FASHION: '👕',
-  BEAUTY: '💄', SPORTS: '⚽', BOOKS: '📚', COLLECTIBLES: '📦',
-  ACCESSORY: '👜', MUSIC_INSTRUMENT: '🎸', GAMING: '🎮',
-  TOOLS: '🧰', VEHICLE: '🏍️', LUXURY: '💎', OTHER: '🧾',
-}
-
-const CATEGORY_LABELS = {
-  ELECTRONICS: 'Electronics', FURNITURE: 'Furniture', HOME_APPLIANCE: 'Home Appliances',
-  FASHION: 'Fashion', BEAUTY: 'Beauty', SPORTS: 'Sports', BOOKS: 'Books',
-  COLLECTIBLES: 'Collectibles', ACCESSORY: 'Accessories', MUSIC_INSTRUMENT: 'Music Instruments',
-  GAMING: 'Gaming', TOOLS: 'Tools', VEHICLE: 'Vehicles', LUXURY: 'Luxury', OTHER: 'Other',
-}
+import { amber, CATEGORIES, CATEGORY_ICONS, formatCategory } from '../constants/listings'
+import { useMarketplaceStore } from '../stores/marketplaceStore'
 
 export default function BrowsePage() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [listings, setListings] = useState([])
-  const [loading, setLoading] = useState(true)
+  const listings = useMarketplaceStore((state) => state.listings)
+  const loading = useMarketplaceStore((state) => state.listingsLoading)
+  const error = useMarketplaceStore((state) => state.listingsError)
+  const loadListings = useMarketplaceStore((state) => state.loadListings)
   const category = searchParams.get('category') || ''
 
   const handleCategoryChange = (e) => {
@@ -38,11 +19,8 @@ export default function BrowsePage() {
   }
 
   useEffect(() => {
-    setLoading(true)
-    fetchListings(category)
-      .then(data => { setListings(data); setLoading(false) })
-      .catch(() => setLoading(false))
-  }, [category])
+    loadListings(category)
+  }, [category, loadListings])
 
   return (
     <Box sx={{ pt: '100px', pb: 10 }}>
@@ -74,7 +52,7 @@ export default function BrowsePage() {
               <MenuItem value="">All Categories</MenuItem>
               {CATEGORIES.map(cat => (
                 <MenuItem key={cat} value={cat}>
-                  {CATEGORY_ICONS[cat]} {CATEGORY_LABELS[cat]}
+                  {CATEGORY_ICONS[cat]} {formatCategory(cat)}
                 </MenuItem>
               ))}
             </Select>
@@ -83,13 +61,15 @@ export default function BrowsePage() {
 
         {loading ? (
           <Typography sx={{ color: 'text.secondary', textAlign: 'center', py: 10 }}>Loading...</Typography>
+        ) : error ? (
+          <Typography color="error" sx={{ textAlign: 'center', py: 10 }}>{error}</Typography>
         ) : listings.length === 0 ? (
           <Box sx={{ textAlign: 'center', py: 12 }}>
             <Typography sx={{ fontSize: 48, mb: 2 }}>🔍</Typography>
             <Typography variant="h6" sx={{ mb: 1 }}>No listings found</Typography>
             <Typography sx={{ color: 'text.secondary', mb: 3 }}>
               {category
-                ? `Nothing listed under ${CATEGORY_LABELS[category]} yet.`
+                ? `Nothing listed under ${formatCategory(category)} yet.`
                 : 'No listings available right now.'}
             </Typography>
             {category && (
@@ -146,7 +126,7 @@ function ListingCard({ listing }) {
 
       <CardContent sx={{ flex: 1, p: 2.5 }}>
         <Typography sx={{ fontSize: 12, color: amber, textTransform: 'uppercase', fontWeight: 600, letterSpacing: '0.5px', mb: 1 }}>
-          {CATEGORY_LABELS[listing.category] || listing.category}
+          {formatCategory(listing.category)}
         </Typography>
         <Typography sx={{ fontSize: 18, fontWeight: 700, mb: 1.5, lineHeight: 1.4 }}>
           {listing.title}

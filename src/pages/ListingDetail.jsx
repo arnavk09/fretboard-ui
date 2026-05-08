@@ -1,28 +1,20 @@
 import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Box, Typography, Button, Divider, CircularProgress } from '@mui/material'
 import { alpha } from '@mui/material/styles'
-import { fetchListingById } from '../services/api'
-
-const amber = '#F59E0B'
-
-const CATEGORY_ICONS = {
-  ELECTRONICS: '💻', VEHICLES: '🏍️', FURNITURE: '🛋️', FASHION: '👕',
-  TOOLS: '🧰', BOOKS: '📚', COLLECTIBLES: '📦', APPLIANCES: '🔌',
-  SERVICES: '🤝', TICKETS: '🎟️', OTHER: '🧾',
-}
+import { amber, CATEGORY_ICONS, formatCategory } from '../constants/listings'
+import { useMarketplaceStore } from '../stores/marketplaceStore'
 
 export default function ListingDetail() {
   const { id } = useParams()
-  const [listing, setListing] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const listing = useMarketplaceStore((state) => state.selectedListing)
+  const loading = useMarketplaceStore((state) => state.selectedListingLoading)
+  const error = useMarketplaceStore((state) => state.selectedListingError)
+  const loadListing = useMarketplaceStore((state) => state.loadListing)
 
   useEffect(() => {
-    fetchListingById(id)
-      .then(data => { setListing(data); setLoading(false) })
-      .catch(err => { setError(err.message); setLoading(false) })
-  }, [id])
+    loadListing(id)
+  }, [id, loadListing])
 
   if (loading) return (
     <Box sx={{ pt: '120px', display: 'flex', justifyContent: 'center' }}>
@@ -65,7 +57,7 @@ export default function ListingDetail() {
         {/* Info */}
         <Box>
           <Typography sx={{ fontSize: 12, color: amber, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', mb: 1.5 }}>
-            {listing.category}
+            {formatCategory(listing.category)}
           </Typography>
           <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 36 }, mb: 2 }}>
             {listing.title}

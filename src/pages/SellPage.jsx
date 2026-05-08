@@ -1,41 +1,32 @@
-import { useState } from 'react'
 import { Box, Typography, TextField, Select, MenuItem, FormControl, InputLabel, Button } from '@mui/material'
-import { createListing } from '../services/api'
-
-const amber = '#F59E0B'
-
-const CATEGORIES = ['ELECTRONICS', 'VEHICLES', 'FURNITURE', 'FASHION', 'TOOLS', 'BOOKS', 'COLLECTIBLES', 'APPLIANCES', 'SERVICES', 'TICKETS', 'OTHER']
-const CONDITIONS = ['new', 'like-new', 'good', 'fair', 'for-parts']
-
-const EMPTY_FORM = {
-  title: '', description: '', price: '',
-  category: 'ELECTRONICS', condition: 'good',
-  location: '', sellerId: '',
-  brand: '', model: '', year: '', pincode: '',
-}
+import { amber, CATEGORIES, CONDITIONS, formatCategory, formatCondition } from '../constants/listings'
+import { useListingFormStore } from '../stores/listingFormStore'
+import { useMarketplaceStore } from '../stores/marketplaceStore'
 
 export default function SellPage() {
-  const [form, setForm] = useState(EMPTY_FORM)
-  const [submitting, setSubmitting] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const form = useListingFormStore((state) => state.form)
+  const submitting = useListingFormStore((state) => state.submitting)
+  const success = useListingFormStore((state) => state.success)
+  const error = useListingFormStore((state) => state.error)
+  const setField = useListingFormStore((state) => state.setField)
+  const startSubmit = useListingFormStore((state) => state.startSubmit)
+  const finishSubmit = useListingFormStore((state) => state.finishSubmit)
+  const failSubmit = useListingFormStore((state) => state.failSubmit)
+  const resetSuccess = useListingFormStore((state) => state.resetSuccess)
+  const getPayload = useListingFormStore((state) => state.getPayload)
+  const createListing = useMarketplaceStore((state) => state.createListing)
 
-  const set = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }))
+  const set = (field) => (e) => setField(field, e.target.value)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitting(true)
+    startSubmit()
+
     try {
-      await createListing({
-        ...form,
-        price: parseFloat(form.price),
-        year: form.year ? parseInt(form.year) : null,
-        pincode: form.pincode ? parseInt(form.pincode) : null,
-        currency: 'INR',
-      })
-      setSuccess(true)
-      setForm(EMPTY_FORM)
-    } finally {
-      setSubmitting(false)
+      await createListing(getPayload())
+      finishSubmit()
+    } catch (err) {
+      failSubmit(err.message)
     }
   }
 
@@ -51,7 +42,7 @@ export default function SellPage() {
         <Typography sx={{ color: 'text.secondary', mb: 4 }}>
           Your item has been listed. Buyers can now find it and purchase via escrow.
         </Typography>
-        <Button variant="contained" color="primary" onClick={() => setSuccess(false)}>
+        <Button variant="contained" color="primary" onClick={resetSuccess}>
           List Another
         </Button>
       </Box>
@@ -82,7 +73,7 @@ export default function SellPage() {
             <InputLabel>Category</InputLabel>
             <Select value={form.category} onChange={set('category')} label="Category">
               {CATEGORIES.map(c => (
-                <MenuItem key={c} value={c}>{c.charAt(0) + c.slice(1).toLowerCase()}</MenuItem>
+                <MenuItem key={c} value={c}>{formatCategory(c)}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -93,7 +84,7 @@ export default function SellPage() {
             <InputLabel>Condition</InputLabel>
             <Select value={form.condition} onChange={set('condition')} label="Condition">
               {CONDITIONS.map(c => (
-                <MenuItem key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1).replace('-', ' ')}</MenuItem>
+                <MenuItem key={c} value={c}>{formatCondition(c)}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -127,6 +118,12 @@ export default function SellPage() {
           fullWidth
           helperText="Temporary field — will be replaced by auth"
         />
+
+        {error && (
+          <Typography color="error" sx={{ fontSize: 14 }}>
+            {error}
+          </Typography>
+        )}
 
         <Button
           type="submit"
