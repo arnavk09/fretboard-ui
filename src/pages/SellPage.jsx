@@ -2,6 +2,7 @@ import { Box, Typography, TextField, Select, MenuItem, FormControl, InputLabel, 
 import { amber, CATEGORIES, CONDITIONS, formatCategory, formatCondition } from '../constants/listings'
 import { useListingFormStore } from '../stores/listingFormStore'
 import { useMarketplaceStore } from '../stores/marketplaceStore'
+import { useAuthStore } from '../stores/authStore'
 
 export default function SellPage() {
   const form = useListingFormStore((state) => state.form)
@@ -15,6 +16,7 @@ export default function SellPage() {
   const resetSuccess = useListingFormStore((state) => state.resetSuccess)
   const getPayload = useListingFormStore((state) => state.getPayload)
   const createListing = useMarketplaceStore((state) => state.createListing)
+  const user = useAuthStore((state) => state.user)
 
   const set = (field) => (e) => setField(field, e.target.value)
 
@@ -110,14 +112,17 @@ export default function SellPage() {
           <TextField label="Pincode" type="number" value={form.pincode} onChange={set('pincode')} />
         </Box>
 
-        <TextField
-          label="Contact Email / Username"
-          required
-          value={form.sellerId}
-          onChange={set('sellerId')}
-          fullWidth
-          helperText="Temporary field — will be replaced by auth"
-        />
+        <Box sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 2, p: 2 }}>
+          <Typography sx={{ fontSize: 13, color: 'text.secondary', mb: 0.5 }}>
+            Seller account
+          </Typography>
+          <Typography sx={{ fontWeight: 600 }}>
+            {[user.firstName, user.lastName].filter(Boolean).join(' ') || user.email}
+          </Typography>
+          <Typography sx={{ fontSize: 13, color: 'text.secondary' }}>
+            {user.email}
+          </Typography>
+        </Box>
 
         {error && (
           <Typography color="error" sx={{ fontSize: 14 }}>

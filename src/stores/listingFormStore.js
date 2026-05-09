@@ -7,7 +7,6 @@ export const EMPTY_LISTING_FORM = {
   category: 'ELECTRONICS',
   condition: 'good',
   location: '',
-  sellerId: '',
   brand: '',
   model: '',
   year: '',

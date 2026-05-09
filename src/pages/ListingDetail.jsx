@@ -1,20 +1,55 @@
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import { Box, Typography, Button, Divider, CircularProgress } from '@mui/material'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  Typography,
+} from '@mui/material'
 import { alpha } from '@mui/material/styles'
 import { amber, CATEGORY_ICONS, formatCategory } from '../constants/listings'
 import { useMarketplaceStore } from '../stores/marketplaceStore'
+import { redirectToGoogleAuth } from '../services/api'
+import { useAuthStore } from '../stores/authStore'
+import { isListingCreator } from '../utils/listingOwnership'
 
 export default function ListingDetail() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const listing = useMarketplaceStore((state) => state.selectedListing)
   const loading = useMarketplaceStore((state) => state.selectedListingLoading)
   const error = useMarketplaceStore((state) => state.selectedListingError)
   const loadListing = useMarketplaceStore((state) => state.loadListing)
+  const deleteListing = useMarketplaceStore((state) => state.deleteListing)
+  const user = useAuthStore((state) => state.user)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
 
   useEffect(() => {
     loadListing(id)
   }, [id, loadListing])
+
+  const handleDelete = async () => {
+    setDeleting(true)
+    setDeleteError('')
+
+    try {
+      await deleteListing(id)
+      setDeleteDialogOpen(false)
+      navigate('/account', { replace: true })
+    } catch (err) {
+      setDeleteError(err.message)
+      setDeleting(false)
+    }
+  }
 
   if (loading) return (
     <Box sx={{ pt: '120px', display: 'flex', justifyContent: 'center' }}>
@@ -30,6 +65,9 @@ export default function ListingDetail() {
 
   const icon = CATEGORY_ICONS[listing.category] || '🧾'
   const isGood = listing.condition === 'new' || listing.condition === 'like-new'
+  const isCreator = isListingCreator(listing, user)
+  const protectedActionLabel = user ? 'Buy with Escrow →' : 'Sign in to Buy'
+  const protectedMessageLabel = user ? 'Message Seller' : 'Sign in to Message'
 
   const details = [
     ['Condition', listing.condition],
@@ -111,23 +149,66 @@ export default function ListingDetail() {
             color="primary"
             fullWidth
             size="large"
+            onClick={user ? undefined : redirectToGoogleAuth}
             sx={{ fontSize: 16, py: 2, mb: 1.5 }}
           >
-            Buy with Escrow →
+            {protectedActionLabel}
           </Button>
           <Button
             variant="outlined"
             fullWidth
             size="large"
+            onClick={user ? undefined : redirectToGoogleAuth}
             sx={{
               borderColor: 'divider', color: 'text.primary', py: 1.75,
               '&:hover': { borderColor: 'text.secondary', bgcolor: '#18181B' },
             }}
           >
-            Message Seller
+            {protectedMessageLabel}
           </Button>
+
+          {isCreator && (
+            <>
+              <Divider sx={{ borderColor: 'divider', my: 3 }} />
+              <Button
+                variant="outlined"
+                color="error"
+                fullWidth
+                size="large"
+                onClick={() => {
+                  setDeleteError('')
+                  setDeleteDialogOpen(true)
+                }}
+                sx={{ py: 1.75 }}
+              >
+                Delete Listing
+              </Button>
+            </>
+          )}
         </Box>
       </Box>
+
+      <Dialog open={deleteDialogOpen} onClose={() => !deleting && setDeleteDialogOpen(false)}>
+        <DialogTitle>Delete listing?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            This permanently removes this listing from the marketplace.
+          </DialogContentText>
+          {deleteError && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {deleteError}
+            </Alert>
+          )}
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button onClick={() => setDeleteDialogOpen(false)} disabled={deleting}>
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="error" variant="contained" disabled={deleting}>
+            {deleting ? 'Deleting...' : 'Delete'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }

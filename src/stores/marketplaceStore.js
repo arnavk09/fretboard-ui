@@ -1,5 +1,10 @@
 import { create } from 'zustand'
-import { createListing as createListingRequest, fetchListingById, fetchListings } from '../services/api'
+import {
+  createListing as createListingRequest,
+  deleteListing as deleteListingRequest,
+  fetchListingById,
+  fetchListings,
+} from '../services/api'
 
 const idleState = {
   listings: [],
@@ -49,4 +54,12 @@ export const useMarketplaceStore = create((set) => ({
   },
 
   createListing: (listing) => createListingRequest(listing),
+
+  deleteListing: async (id) => {
+    await deleteListingRequest(id)
+    set((state) => ({
+      listings: state.listings.filter((listing) => String(listing.id) !== String(id)),
+      selectedListing: String(state.selectedListing?.id) === String(id) ? null : state.selectedListing,
+    }))
+  },
 }))
